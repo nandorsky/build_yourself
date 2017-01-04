@@ -1,0 +1,114 @@
+<%= link_to 'Edit', edit_day_path(@day) %> |
+<%= link_to 'Back', days_path %>
+
+
+      <div class="row">
+        <div class="col-md-12">
+          <h1><%= @day.date.strftime("%A, %B %e, %Y") %></h1>
+          <hr>
+        </div>
+        <div class="col-md-4">
+
+          <h4>Today's Targets</h4>
+          <ol>  
+                <% @day.targets.each do |target| %>
+                  <li><%= target.target %></li>
+                <% end %>
+              </ol>
+          <% if @day.targets.count < 2 %>
+                  
+                    <%= form_for([@day, @day.targets.build]) do |f| %>
+                      <div class="form-group">
+                        <%= f.label :target, :class => "hidden" %><br>
+                        <%= f.text_area :target, :rows => 2, :class => "form-control" %>
+                        <%= f.hidden_field :status, :value => "todo" %>
+                      </div>
+                        <%= f.submit "Add", :class => "btn btn-primary", data: { disable_with: "Adding..." } %>
+                    <% end %>
+                  
+                <% end %>
+
+          <h4>Tonight I am grateful for...</h4>
+              <ol>  
+                <% @day.gratefuls.each do |grateful| %>
+                  <li><%= grateful.comment %></li>
+                <% end %>
+              </ol>
+                <% if @day.gratefuls.count < 3 %>
+                  
+                    <%= form_for([@day, @day.gratefuls.build]) do |f| %>
+                      <div class="form-group">
+                        <%= f.label :comment, :class => "hidden" %><br>
+                        <%= f.text_area :comment, :rows => 2, :class => "form-control" %>
+                      </div>
+                        <%= f.submit "Add", :class => "btn btn-primary", data: { disable_with: "Adding..." } %>
+                    <% end %>
+                  
+                <% end %>
+
+        </div>
+        <div class="col-md-8">
+          <div class="table-responsive">          
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Activity</th>
+                <th>Goal</th>
+                <th>Mon</th>
+                <th>Tue</th>
+                <th>Wed</th>
+                <th>Thur</th>
+                <th>Fri</th>
+                <th>Sat</th>
+                <th>Sun</th>
+                <th>Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Meditate</td>
+                <td>5</td>
+                <td >
+                  <button type="button" class="btn btn-success btn-sm  active" data-toggle="button" aria-pressed="false" autocomplete="off">
+                   <span class="fa fa-check" aria-hidden="true"></span>
+                  </button>
+               </td>
+                <td>
+                  <button type="button" class="btn btn-default btn-sm" data-toggle="button" aria-pressed="false" autocomplete="off">
+                    <span class="fa fa-check" aria-hidden="true"></span>
+                  </button>
+                </td>
+                <td>
+                  <button type="button" class="btn btn-default btn-sm" data-toggle="button" aria-pressed="false" autocomplete="off">
+                    <span class="fa fa-check" aria-hidden="true"></span>
+                  </button>
+                </td>
+                <td>
+                  <button type="button" class="btn btn-default btn-sm" data-toggle="button" aria-pressed="false" autocomplete="off">
+                    <span class="fa fa-check" aria-hidden="true"></span>
+                  </button>
+                </td>
+                <td>
+                  <button type="button" class="btn btn-default btn-sm" data-toggle="button" aria-pressed="false" autocomplete="off">
+                    <span class="fa fa-check" aria-hidden="true"></span>
+                  </button>
+                </td>
+                <td>
+                  <button type="button" class="btn btn-default btn-sm" data-toggle="button" aria-pressed="false" autocomplete="off">
+                    <span class="fa fa-check" aria-hidden="true"></span>
+                  </button>
+                </td>
+                <td>
+                  <button type="button" class="btn btn-default btn-sm" data-toggle="button" aria-pressed="false" autocomplete="off">
+                    <span class="fa fa-check" aria-hidden="true"></span>
+                  </button>
+                </td>
+                <td>
+                <span class="label label-warning">  1</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          </div>
+        </div>
+      </div>

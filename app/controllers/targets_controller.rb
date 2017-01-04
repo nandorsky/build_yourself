@@ -1,0 +1,67 @@
+class TargetsController < ApplicationController
+  before_action :set_target, only: [:show, :edit, :update, :destroy]
+
+  # GET /targets
+  # GET /targets.json
+  def index
+    @targets = Target.all
+  end
+
+  # GET /targets/1
+  # GET /targets/1.json
+  def show
+  end
+
+  # GET /targets/new
+  def new
+    @target = current_user.targets.build
+  end
+
+  # GET /targets/1/edit
+  def edit
+  end
+
+  # POST /targets
+  # POST /targets.json
+  def create
+    @day = Day.find(params[:day_id])
+    @target = @day.targets.build(params[:target].permit(:target, :status))
+    @target.save!
+    redirect_to day_path(@day), notice: 'Bingo! Your day was successfully posted!'
+  end
+
+  # PATCH/PUT /targets/1
+  # PATCH/PUT /targets/1.json
+  def update
+    respond_to do |format|
+      if @target.update(target_params)
+        format.html { redirect_to @target, notice: 'Target was successfully updated.' }
+        format.json { render :show, status: :ok, location: @target }
+      else
+        format.html { render :edit }
+        format.json { render json: @target.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # DELETE /targets/1
+  # DELETE /targets/1.json
+  def destroy
+    @target.destroy
+    respond_to do |format|
+      format.html { redirect_to targets_url, notice: 'Target was successfully destroyed.' }
+      format.json { head :no_content }
+    end
+  end
+
+  private
+    # Use callbacks to share common setup or constraints between actions.
+    def set_target
+      @target = Target.find(params[:id])
+    end
+
+    # Never trust parameters from the scary internet, only allow the white list through.
+    def target_params
+      params.require(:target).permit(:target, :status, :day_id)
+    end
+end

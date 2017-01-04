@@ -1,0 +1,1 @@
+json.array! @gratefuls, partial: 'gratefuls/grateful', as: :grateful

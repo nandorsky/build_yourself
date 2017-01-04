@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Gratefuls</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Comment</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @gratefuls.each do |grateful| %>
+      <tr>
+        <td><%= grateful.comment %></td>
+        <td><%= link_to 'Show', grateful %></td>
+        <td><%= link_to 'Edit', edit_grateful_path(grateful) %></td>
+        <td><%= link_to 'Destroy', grateful, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Grateful', new_grateful_path %>

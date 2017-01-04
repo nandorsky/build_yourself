@@ -1,0 +1,36 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Week of <%= @week.start_date %></h1>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Day</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @week.days.each do |day| %>
+      <tr>
+        <td><%= day.date %></td>
+        <td><%= link_to 'Show', day %></td>
+        <td><%= link_to 'Edit', edit_day_path(day) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+                    <%= form_for([@week, @week.days.build]) do |f| %>
+                      <div class="form-group">
+                        <%= f.label :date, :class => "hidden" %><br>
+                        <%= f.date_select :date %>
+                      </div>
+                        <%= f.submit "Add Day", :class => "btn btn-primary", data: { disable_with: "Adding..." } %>
+                    <% end %>
+
+
+
