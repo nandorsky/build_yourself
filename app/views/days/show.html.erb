@@ -9,10 +9,14 @@
         </div>
         <div class="col-md-4">
 
-          <h4>Today's Targets</h4>
+          <h4><i class="fa fa-bullseye" aria-hidden="true"></i>  Today's Targets</h4>
           <ol>  
                 <% @day.targets.each do |target| %>
-                  <li><%= target.target %></li>
+                  <li>
+                    <%= target.target %> (<%= target.status %>)
+                    <a href="#"><i class="fa fa-check" aria-hidden="true"></i> </a>
+                    <a href="#"><i class="fa fa-trash" aria-hidden="true"></i> </a>
+                   </li>
                 <% end %>
               </ol>
           <% if @day.targets.count < 2 %>
@@ -20,15 +24,18 @@
                     <%= form_for([@day, @day.targets.build]) do |f| %>
                       <div class="form-group">
                         <%= f.label :target, :class => "hidden" %><br>
-                        <%= f.text_area :target, :rows => 2, :class => "form-control" %>
+                        <%= f.text_area :target, :rows => 2, :class => "form-control", :placeholder => "The 2 most important tasks you need to accomplish today." %>
+                        <small id="emailHelp" class="form-text text-muted">
+                          You can add a maximium of 2 items here.
+                        </small>
                         <%= f.hidden_field :status, :value => "todo" %>
                       </div>
                         <%= f.submit "Add", :class => "btn btn-primary", data: { disable_with: "Adding..." } %>
                     <% end %>
                   
                 <% end %>
-
-          <h4>Tonight I am grateful for...</h4>
+                <hr>
+          <h4><i class="fa fa-moon-o" aria-hidden="true"></i>  Tonight I am grateful for...</h4>
               <ol>  
                 <% @day.gratefuls.each do |grateful| %>
                   <li><%= grateful.comment %></li>
@@ -39,7 +46,10 @@
                     <%= form_for([@day, @day.gratefuls.build]) do |f| %>
                       <div class="form-group">
                         <%= f.label :comment, :class => "hidden" %><br>
-                        <%= f.text_area :comment, :rows => 2, :class => "form-control" %>
+                        <%= f.text_area :comment, :rows => 2, :class => "form-control", :placeholder => "A space to end your day with positivity..." %>
+                        <small id="emailHelp" class="form-text text-muted">
+                          You can add a maximium of 3 items here.
+                        </small>
                       </div>
                         <%= f.submit "Add", :class => "btn btn-primary", data: { disable_with: "Adding..." } %>
                     <% end %>
@@ -47,7 +57,9 @@
                 <% end %>
 
         </div>
-        <div class="col-md-8">
+        <div class="col-md-7 col-md-offset-1">
+          <h4>Weekly Activity Tracking</h4>
+          <hr>
           <div class="table-responsive">          
           <table class="table">
             <thead>
