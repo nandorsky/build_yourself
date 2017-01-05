@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170104014353) do
+ActiveRecord::Schema.define(version: 20170104235021) do
 
   create_table "days", force: :cascade do |t|
     t.date     "date"
@@ -31,6 +31,18 @@ ActiveRecord::Schema.define(version: 20170104014353) do
 
   add_index "gratefuls", ["day_id"], name: "index_gratefuls_on_day_id"
 
+  create_table "reports", force: :cascade do |t|
+    t.text     "happy"
+    t.text     "big_wins"
+    t.text     "progress"
+    t.text     "lesson"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "week_id"
+  end
+
+  add_index "reports", ["week_id"], name: "index_reports_on_week_id"
+
   create_table "roles", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
@@ -41,8 +53,9 @@ ActiveRecord::Schema.define(version: 20170104014353) do
     t.string   "target"
     t.string   "status"
     t.integer  "day_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.datetime "completed_at"
   end
 
   add_index "targets", ["day_id"], name: "index_targets_on_day_id"

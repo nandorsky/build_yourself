@@ -1,0 +1,34 @@
+<%= form_for([@week, @week.reports.build]) do |f| %>
+  <% if @report.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@report.errors.count, "error") %> prohibited this report from being saved:</h2>
+
+      <ul>
+      <% @report.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :happy, "On a scale from 1-10, how happy were you this week and why?" %><br>
+    <%= f.text_area :happy, :rows => 5, :class => "form-control", :required => true %> 
+  </div>
+  <div class="form-group">
+    <%= f.label :big_wins, "What were your 3 big wins for the week?" %><br>
+    <%= f.text_area :big_wins, :rows => 5, :class => "form-control", :required => true %> 
+  </div>
+ <div class="form-group">
+    <%= f.label :progress, "Review your goal and assess your progress. Did you spend your time on the right things? If not how will you improve next week?" %><br>
+    <%= f.text_area :progress, :rows => 5, :class => "form-control", :required => true %>
+  </div>
+  <div class="form-group">
+    <%= f.label :lesson, "What was the biggest lesson you leanred this week?" %><br>
+    <%= f.text_area :lesson, :rows => 5, :class => "form-control", :required => true %> 
+  </div>
+  
+    <%= f.submit "Submit", :class => "btn btn-primary", data: { disable_with: "Adding..." } %>
+
+<% end %>
+

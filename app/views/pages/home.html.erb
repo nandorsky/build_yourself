@@ -1,26 +1,19 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Build Yourself</h1>
-<%= link_to 'New Week', new_week_path %>
+<%= link_to 'Add New Week', new_week_path %>
 
 <table class="table table-striped">
   <thead>
     <tr>
-      <td>Week</td>
-      <th>Start date</th>
-      <th>End date</th>
-      <th colspan="3"></th>
+      <td>Week of</td>
     </tr>
   </thead>
 
   <tbody>
     <% @weeks.each do |week| %>
       <tr>
-        <td><%= week.week_number %></td>
-        <td><%= week.start_date %></td>
-        <td><%= week.end_date %></td>
-        <td><%= link_to 'Show', week %></td>
-        <td><%= link_to 'Edit', edit_week_path(week) %></td>
+        <td><%= link_to week.start_date, week %></td>
       </tr>
     <% end %>
   </tbody>

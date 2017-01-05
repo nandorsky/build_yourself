@@ -10,7 +10,7 @@ class WeeksController < ApplicationController
   # GET /weeks/1
   # GET /weeks/1.json
   def show
-    
+   @week = Week.find(params[:id])
   end
 
   # GET /weeks/new

@@ -21,6 +21,12 @@ class TargetsController < ApplicationController
   def edit
   end
 
+  def complete
+    @target = Target.find(params[:id])
+    @target.update_attribute(:completed_at, Time.now)
+    redirect_to(:back)
+  end
+
   # POST /targets
   # POST /targets.json
   def create

@@ -1,36 +1,45 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Week of <%= @week.start_date %></h1>
+<div class="row">
 
+<div class="col-md-12">
+  <h1>Week of <%= @week.start_date %></h1>
+</div>
+<div class="col-md-9">
+     <%= form_for([@week, @week.days.build]) do |f| %>
+            <%= f.submit "Add Day", :class => "btn btn-primary", data: { disable_with: "Adding..." } %>
+          <div class="form-group">
+            <%= f.label :date, :class => "hidden" %><br>
+            <%= f.date_select :date, :order => [:month, :day, :year] %>
+          </div>
+      <% end %>
+</div>
+<div class="col-md-3">
+
+      <%= link_to 'New Report', new_week_report_path(@week) %>
+</div>
+
+<div class="col-md-12">
 <table class="table table-striped">
   <thead>
     <tr>
       <th>Day</th>
-      <th></th>
-      <th></th>
+      <th>Gratefuls</th>
+      <th>Targets</th>
     </tr>
   </thead>
 
   <tbody>
     <% @week.days.each do |day| %>
       <tr>
-        <td><%= day.date %></td>
-        <td><%= link_to 'Show', day %></td>
-        <td><%= link_to 'Edit', edit_day_path(day) %></td>
+        <td><%= link_to day.date, day %></td>
+        <td><%= day.gratefuls.count %></td>
+        <td><%= day.targets.count %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
+</div>
 
-<br>
-
-                    <%= form_for([@week, @week.days.build]) do |f| %>
-                      <div class="form-group">
-                        <%= f.label :date, :class => "hidden" %><br>
-                        <%= f.date_select :date %>
-                      </div>
-                        <%= f.submit "Add Day", :class => "btn btn-primary", data: { disable_with: "Adding..." } %>
-                    <% end %>
-
-
+</div>
 

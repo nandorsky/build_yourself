@@ -1,5 +1,5 @@
 <%= link_to 'Edit', edit_day_path(@day) %> |
-<%= link_to 'Back', days_path %>
+<%= link_to 'Back', week_path(@day.week_id) %>
 
 
       <div class="row">
@@ -9,13 +9,18 @@
         </div>
         <div class="col-md-4">
 
+
+        <!-- Targets start -->
           <h4><i class="fa fa-bullseye" aria-hidden="true"></i>  Today's Targets</h4>
           <ol>  
                 <% @day.targets.each do |target| %>
                   <li>
-                    <%= target.target %> (<%= target.status %>)
-                    <a href="#"><i class="fa fa-check" aria-hidden="true"></i> </a>
-                    <a href="#"><i class="fa fa-trash" aria-hidden="true"></i> </a>
+                    <%= link_to '<i class="fa fa-check"></i>'.html_safe, complete_target_path(target), method: :patch  %>
+                  <% if target.completed_at.nil? %>
+                    <%= target.target %>
+                  <% else %>
+                   <span style="text-decoration: line-through;"><%= target.target %></span>
+                  <% end %>
                    </li>
                 <% end %>
               </ol>
@@ -24,7 +29,7 @@
                     <%= form_for([@day, @day.targets.build]) do |f| %>
                       <div class="form-group">
                         <%= f.label :target, :class => "hidden" %><br>
-                        <%= f.text_area :target, :rows => 2, :class => "form-control", :placeholder => "The 2 most important tasks you need to accomplish today." %>
+                        <%= f.text_area :target, :rows => 2, :class => "form-control", :required => true, :placeholder => "The 2 most important tasks you need to accomplish today." %>
                         <small id="emailHelp" class="form-text text-muted">
                           You can add a maximium of 2 items here.
                         </small>
@@ -34,7 +39,10 @@
                     <% end %>
                   
                 <% end %>
+         <!-- Targets end -->
                 <hr>
+          
+        <!-- Tonight I am grateful for start -->
           <h4><i class="fa fa-moon-o" aria-hidden="true"></i>  Tonight I am grateful for...</h4>
               <ol>  
                 <% @day.gratefuls.each do |grateful| %>
@@ -42,85 +50,21 @@
                 <% end %>
               </ol>
                 <% if @day.gratefuls.count < 3 %>
-                  
                     <%= form_for([@day, @day.gratefuls.build]) do |f| %>
                       <div class="form-group">
                         <%= f.label :comment, :class => "hidden" %><br>
-                        <%= f.text_area :comment, :rows => 2, :class => "form-control", :placeholder => "A space to end your day with positivity..." %>
+                        <%= f.text_area :comment, :rows => 2, :class => "form-control", :required => true, :placeholder => "A space to end your day with positivity..." %>
                         <small id="emailHelp" class="form-text text-muted">
                           You can add a maximium of 3 items here.
                         </small>
                       </div>
                         <%= f.submit "Add", :class => "btn btn-primary", data: { disable_with: "Adding..." } %>
                     <% end %>
-                  
                 <% end %>
+        <!-- Tonight I am grateful for end -->
 
         </div>
-        <div class="col-md-7 col-md-offset-1">
-          <h4>Weekly Activity Tracking</h4>
-          <hr>
-          <div class="table-responsive">          
-          <table class="table">
-            <thead>
-              <tr>
-                <th>Activity</th>
-                <th>Goal</th>
-                <th>Mon</th>
-                <th>Tue</th>
-                <th>Wed</th>
-                <th>Thur</th>
-                <th>Fri</th>
-                <th>Sat</th>
-                <th>Sun</th>
-                <th>Total</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Meditate</td>
-                <td>5</td>
-                <td >
-                  <button type="button" class="btn btn-success btn-sm  active" data-toggle="button" aria-pressed="false" autocomplete="off">
-                   <span class="fa fa-check" aria-hidden="true"></span>
-                  </button>
-               </td>
-                <td>
-                  <button type="button" class="btn btn-default btn-sm" data-toggle="button" aria-pressed="false" autocomplete="off">
-                    <span class="fa fa-check" aria-hidden="true"></span>
-                  </button>
-                </td>
-                <td>
-                  <button type="button" class="btn btn-default btn-sm" data-toggle="button" aria-pressed="false" autocomplete="off">
-                    <span class="fa fa-check" aria-hidden="true"></span>
-                  </button>
-                </td>
-                <td>
-                  <button type="button" class="btn btn-default btn-sm" data-toggle="button" aria-pressed="false" autocomplete="off">
-                    <span class="fa fa-check" aria-hidden="true"></span>
-                  </button>
-                </td>
-                <td>
-                  <button type="button" class="btn btn-default btn-sm" data-toggle="button" aria-pressed="false" autocomplete="off">
-                    <span class="fa fa-check" aria-hidden="true"></span>
-                  </button>
-                </td>
-                <td>
-                  <button type="button" class="btn btn-default btn-sm" data-toggle="button" aria-pressed="false" autocomplete="off">
-                    <span class="fa fa-check" aria-hidden="true"></span>
-                  </button>
-                </td>
-                <td>
-                  <button type="button" class="btn btn-default btn-sm" data-toggle="button" aria-pressed="false" autocomplete="off">
-                    <span class="fa fa-check" aria-hidden="true"></span>
-                  </button>
-                </td>
-                <td>
-                <span class="label label-warning">  1</span>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          </div>
-        </div>
+
+        <%= render 'habits' %>
+
       </div>
