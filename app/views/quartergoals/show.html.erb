@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Goal:</strong>
+  <%= @quartergoal.goal %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @quartergoal.user_id %>
+</p>
+
+<%= link_to 'Edit', edit_quartergoal_path(@quartergoal) %> |
+<%= link_to 'Back', quartergoals_path %>

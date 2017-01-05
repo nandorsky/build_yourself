@@ -23,10 +23,9 @@ class ReportsController < ApplicationController
 
   def create
     @week = Week.find(params[:week_id])
-    @report = Report.new(report_params)
-    @report = @week.reports.build(params[:report].permit(:happy))
+    @report = @week.reports.create(reports_params)
     @report.save!
-    redirect_to report_path(@path)
+    redirect_to report_path(@report), notice: 'Bingo! Your day was successfully posted!'
   end
 
   # PATCH/PUT /reports/1

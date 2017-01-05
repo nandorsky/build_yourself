@@ -1,0 +1,7 @@
+<h4>Your Quarter Goals</h4>
+
+<ol>
+  <% current_user.quartergoals.each do |quartergoal| %>
+    <li><%= quartergoal.goal %></li>
+  <% end %>
+</ol>

@@ -15,7 +15,9 @@
           <ol>  
                 <% @day.targets.each do |target| %>
                   <li>
+                    <% if target.completed_at.nil? %>
                     <%= link_to '<i class="fa fa-check"></i>'.html_safe, complete_target_path(target), method: :patch  %>
+                    <% end %>
                   <% if target.completed_at.nil? %>
                     <%= target.target %>
                   <% else %>
@@ -24,15 +26,15 @@
                    </li>
                 <% end %>
               </ol>
-          <% if @day.targets.count < 2 %>
-                  
+          <% if @day.targets.count < 3 %>
+                  <small id="emailHelp" class="form-text text-muted">
+                          You will be able to add a maximum of 3 items.
+                        </small>
                     <%= form_for([@day, @day.targets.build]) do |f| %>
                       <div class="form-group">
                         <%= f.label :target, :class => "hidden" %><br>
-                        <%= f.text_area :target, :rows => 2, :class => "form-control", :required => true, :placeholder => "The 2 most important tasks you need to accomplish today." %>
-                        <small id="emailHelp" class="form-text text-muted">
-                          You can add a maximium of 2 items here.
-                        </small>
+                        <%= f.text_field :target, :class => "form-control", :required => true, :placeholder => "3 most important tasks for today..." %>
+                        
                         <%= f.hidden_field :status, :value => "todo" %>
                       </div>
                         <%= f.submit "Add", :class => "btn btn-primary", data: { disable_with: "Adding..." } %>
@@ -51,12 +53,12 @@
               </ol>
                 <% if @day.gratefuls.count < 3 %>
                     <%= form_for([@day, @day.gratefuls.build]) do |f| %>
-                      <div class="form-group">
-                        <%= f.label :comment, :class => "hidden" %><br>
-                        <%= f.text_area :comment, :rows => 2, :class => "form-control", :required => true, :placeholder => "A space to end your day with positivity..." %>
-                        <small id="emailHelp" class="form-text text-muted">
+                     <small id="emailHelp" class="form-text text-muted">
                           You can add a maximium of 3 items here.
                         </small>
+                      <div class="form-group">
+                        <%= f.label :comment, :class => "hidden" %><br>
+                        <%= f.text_field :comment, :class => "form-control", :required => true, :placeholder => "A space to end your day with positivity..." %>
                       </div>
                         <%= f.submit "Add", :class => "btn btn-primary", data: { disable_with: "Adding..." } %>
                     <% end %>
@@ -64,7 +66,10 @@
         <!-- Tonight I am grateful for end -->
 
         </div>
-
-        <%= render 'habits' %>
+        <div class="col-md-7 col-md-offset-1">
+          <%= render 'habits' %>
+        <hr>
+          <%= render 'quartergoals' %>
+        </div>
 
       </div>

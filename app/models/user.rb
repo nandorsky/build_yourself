@@ -9,8 +9,10 @@ class User < ActiveRecord::Base
   belongs_to :role
   before_create :set_default_role
 
-  # Relationships for articles and comments
+  # Relationships 
   has_many :weeks,  dependent: :destroy
+  has_many :quartergoals, -> { order(goal: :asc) }
+  has_many :activities, -> { order(name: :asc)}
 
   acts_as_voter
 

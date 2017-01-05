@@ -11,7 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170104235021) do
+ActiveRecord::Schema.define(version: 20170105175942) do
+
+  create_table "activities", force: :cascade do |t|
+    t.string   "goal"
+    t.string   "name"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "activities", ["user_id"], name: "index_activities_on_user_id"
 
   create_table "days", force: :cascade do |t|
     t.date     "date"
@@ -30,6 +40,15 @@ ActiveRecord::Schema.define(version: 20170104235021) do
   end
 
   add_index "gratefuls", ["day_id"], name: "index_gratefuls_on_day_id"
+
+  create_table "quartergoals", force: :cascade do |t|
+    t.string   "goal"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "quartergoals", ["user_id"], name: "index_quartergoals_on_user_id"
 
   create_table "reports", force: :cascade do |t|
     t.text     "happy"

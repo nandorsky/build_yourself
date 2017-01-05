@@ -1,0 +1,1 @@
+json.array! @quartergoals, partial: 'quartergoals/quartergoal', as: :quartergoal

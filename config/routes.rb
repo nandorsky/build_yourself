@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
   root "pages#home"
 
+  resources :activities
+  
+  resources :quartergoals
+
   resources :weeks do
     resources :days 
     resources :reports

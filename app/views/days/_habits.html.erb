@@ -1,5 +1,5 @@
 
-        <div class="col-md-7 col-md-offset-1">
+        
           <h4>Weekly Activity Tracking</h4>
           <hr>
           <div class="table-responsive">          
@@ -19,9 +19,10 @@
               </tr>
             </thead>
             <tbody>
+            <% current_user.activities.each do |activity| %>
               <tr>
-                <td>Meditate</td>
-                <td>5</td>
+                <td><%= activity.name %></td>
+                <td><%= activity.goal %></td>
                 <td >
                   <button type="button" class="btn btn-success btn-sm  active" data-toggle="button" aria-pressed="false" autocomplete="off">
                    <span class="fa fa-check" aria-hidden="true"></span>
@@ -61,7 +62,8 @@
                 <span class="label label-warning">  1</span>
                 </td>
               </tr>
+            <% end %>
             </tbody>
           </table>
           </div>
-        </div>
+        

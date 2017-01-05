@@ -1,0 +1,1 @@
+json.partial! "quartergoals/quartergoal", quartergoal: @quartergoal

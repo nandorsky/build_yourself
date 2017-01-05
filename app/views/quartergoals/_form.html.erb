@@ -1,0 +1,21 @@
+<%= form_for(@quartergoal) do |f| %>
+  <% if @quartergoal.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@quartergoal.errors.count, "error") %> prohibited this quartergoal from being saved:</h2>
+
+      <ul>
+      <% @quartergoal.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :goal %><br>
+    <%= f.text_field :goal %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
