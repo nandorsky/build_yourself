@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
   # Relationships 
   has_many :weeks,  dependent: :destroy
   has_many :quartergoals, -> { order(goal: :asc) }
-  has_many :activities, -> { order(name: :asc)}
+  has_many :activities, -> { order(name: :desc)}
 
   acts_as_voter
 
